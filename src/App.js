@@ -1,5 +1,7 @@
 import logo from './logo.svg';
+import Battlemon from './Battlemon.js'
 import pokeball from './Images/poke-ball.png';
+import { useState } from 'react'
 import './App.css';
 
 function App() {
@@ -13,35 +15,46 @@ function App() {
 }
 
 function Menu() {
+  const pokemon = GeneratePokemon();
+  const [player1, setPlayer1] = useState(null)
   return (
       <div className="Menu-header">
         <img src={pokeball} className="Menu-image"></img>
-        Battlemon Game
+        <h1>Battlemon Game</h1>
         <div>
-          <Button mon={new Battlemon("Pikachu", 1, 1, 1, 1)} />
-          <Button mon={new Battlemon("Seviper", 1, 1, 1, 1)} />
-
+          
+          <h5>Choose Player 1</h5>
+          {pokemon.map((mon) => (
+            <Button mon={mon} key={mon.id} />
+          ))}
         </div>
+        
       </div>
   )
 }
 
 function Button({mon}) {
   return (
-    <div className="Button">
+    <button className="Button" onClick={() => console.log("CLICKED")}>
       {mon.name}
-    </div>
+    </button>
   )
 }
 
-class Battlemon {
-  constructor(name, health, level, atk, def) {
-    this.name = name;
-    this.health = health;
-    this.level = level;
-    this.attack = atk;
-    this.defence = def
-  }
+function GeneratePokemon() {
+  const pokemon = [
+    new Battlemon(
+      13, "Pikachu", 1, 1, 1
+    ),
+    new Battlemon(
+      1, "Bulbasaur", 2, 1, 2
+    ),
+    new Battlemon(
+      390, "Chimchar", 3, 4, 1
+    )
+  ];
+
+  return pokemon;
 }
 
 export default App;
